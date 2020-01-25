@@ -13,7 +13,9 @@ class ProductTableViewController: UITableViewController{
     
     
    @IBOutlet weak var searchbar: UISearchBar!
-    var productData = [Products]()
+    var contextVC : NSManagedObjectContext?
+    var productData : [NSManagedObject]?
+    
 //    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -23,18 +25,9 @@ class ProductTableViewController: UITableViewController{
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-//        searchController.searchResultsUpdater = self
-//               searchController.dimsBackgroundDuringPresentation = false
-//               definesPresentationContext = true
-//               tableView.tableHeaderView = searchController.searchBar
-//        searchBar.backgroundColor = UIColor.white
-        
-//        searchController.searchResultsUpdater = self
-//        searchController.dimsBackgroundDuringPresentation = false
-//        definesPresentationContext = true
-//        tableView.tableHeaderView
-        
+    
+       
+//        loadCoreData()
         
     }
 
@@ -47,20 +40,25 @@ class ProductTableViewController: UITableViewController{
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return productData.count
+        return Products.productsData.count
         
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "productCell"){
-            cell.textLabel?.text = productData[indexPath.row].name
+            cell.textLabel?.text = Products.productsData[indexPath.row].name
+            
             return cell
 
             // Configure the cell...
     }
     return UITableViewCell()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        loadCoreData()
+//    }
     
     
     
@@ -141,25 +139,25 @@ class ProductTableViewController: UITableViewController{
         
     
 func loadCoreData() {
-     let appdelegate = UIApplication.shared.delegate as! AppDelegate
-           let context  = appdelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
+    
+//    print("loasd dat")
+    
+          
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
     
     do {
-        let results = try context.fetch(fetchRequest)
-        if results is [NSManagedObject] {
-            for result in results as! [NSManagedObject] {
-                let name = result.value(forKey: "name") as! String
-                let price = result.value(forKey: "price") as! Double
-                let id = result.value(forKey: "id") as! Int
-                let desc = result.value(forKey: "desc") as! String
-                
-                productData.append(Products(name: name, desc: desc, price: price, id: id))
-            }
-        }
+        
+        let result = try contextVC!.fetch(request)
+        productData = result as! [NSManagedObject]
+//        print("\(productData![0].value(forKey: "name"))")
+//        print("\(productData![0].value(forKey: "name")")
+//        let result = try context.fetch(request)
+//        productData = (result as [NSManagedObject])
+        
     } catch {
         print(error)
     }
+    tableView.reloadData()
 }
 
 

@@ -12,6 +12,7 @@ import CoreData
 class ViewController: UIViewController {
     
     var products = [Products]()
+    var contextV : NSManagedObjectContext?
     
     @IBOutlet weak var nametxt: UITextField!
     @IBOutlet weak var idtxt: UITextField!
@@ -36,9 +37,9 @@ class ViewController: UIViewController {
         products = [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10]
         
         
-//        for p in products{
-//            Products.productsData.append(p)
-//        }
+        for p in products{
+            Products.productsData.append(p)
+        }
 
         nametxt.text = p1.name
         idtxt.text = "\(p1.id)"
@@ -51,6 +52,7 @@ class ViewController: UIViewController {
     func saveData() {
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
         let context  = appdelegate.persistentContainer.viewContext
+        contextV = context
         
         for p in products{
             let entity = NSEntityDescription.insertNewObject(forEntityName: "ProductEntity", into: context)
@@ -63,6 +65,12 @@ class ViewController: UIViewController {
             try context.save()
         }catch{
             print(error)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ProductTableViewController{
+            destination.contextVC = contextV
         }
     }
    
