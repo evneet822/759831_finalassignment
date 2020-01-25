@@ -14,7 +14,7 @@ class ProductTableViewController: UITableViewController{
     
    @IBOutlet weak var searchbar: UISearchBar!
     var contextVC : NSManagedObjectContext?
-    var productData : [NSManagedObject]?
+    var productData : [Products]?
     
 //    let searchController = UISearchController(searchResultsController: nil)
     
@@ -56,38 +56,21 @@ class ProductTableViewController: UITableViewController{
     return UITableViewCell()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        loadCoreData()
-//    }
-    
-    
-    
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-////           self.searchBar.showsCancelButton = true
-//        self.searchbar.showsCancelButton = true
-//       }
-//
-//
-//        func updateSearchResults(for searchController: UISearchController) {
-//            filter(for: searchController.searchBar.text!)
-//        }
-//
-//       func updateSearchResults(for searchController: UISearchController) {
-//           filterStudent(for: searchController.searchBar.text ?? "")
-//       }
+
     
     
     
     
 
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
+        
         return true
     }
-    */
+    
 
     /*
     // Override to support editing the table view.
@@ -116,49 +99,27 @@ class ProductTableViewController: UITableViewController{
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if let destination = segue.destination as? DetailViewController{
+            if let cell = sender as? UITableViewCell{
+                let index = tableView.indexPath(for: cell)?.row
+                destination.currindx = index!
+            }
+        }
     }
-    */
-//     func filter(for searchText: String){
-//
-//        filterData = Products.productsData.filter({ (product) -> Bool in
-//            product.name.lowercased().contains(searchText.lowercased())
-//        })
-//        tableView.reloadData()
-        
-//        filterData = Student.studentData.filter({ (Student) -> Bool in
-//            Student.firstName.lowercased().contains(searchText.lowercased())
-//        })
-//        tableView.reloadData()
+
+
         
     
-func loadCoreData() {
-    
-//    print("loasd dat")
-    
-          
-    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
-    
-    do {
-        
-        let result = try contextVC!.fetch(request)
-        productData = result as! [NSManagedObject]
-//        print("\(productData![0].value(forKey: "name"))")
-//        print("\(productData![0].value(forKey: "name")")
-//        let result = try context.fetch(request)
-//        productData = (result as [NSManagedObject])
-        
-    } catch {
-        print(error)
-    }
-    tableView.reloadData()
-}
+
+
 
 
 }

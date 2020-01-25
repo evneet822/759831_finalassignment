@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     var products = [Products]()
     var contextV : NSManagedObjectContext?
+    var loadedData : [Products]?
     
     @IBOutlet weak var nametxt: UITextField!
     @IBOutlet weak var idtxt: UITextField!
@@ -46,10 +47,18 @@ class ViewController: UIViewController {
         priceTxt.text = "\(p1.price)"
         desctxt.text = "\(p1.desc)"
         
+//        clearCoreData()
+        
+        loadata()
+
+         NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+        
         
     }
     
-    func saveData() {
+    @objc func saveData() {
+        
+        clearCoreData()
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
         let context  = appdelegate.persistentContainer.viewContext
         contextV = context
@@ -70,33 +79,56 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ProductTableViewController{
-            destination.contextVC = contextV
+            destination.productData = loadedData
+        }
+    }
+    
+    func loadata() {
+        
+        Products.productsData = []
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        let context  = appdelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
+        
+        do{
+            let results = try context.fetch(request)
+            for result in results as! [NSManagedObject]{
+                let name = result.value(forKey: "name") as! String
+                let desc = result.value(forKey: "desc") as! String
+                let price = result.value(forKey: "price") as! Double
+                let id = result.value(forKey: "id") as! Int
+                
+                Products.productsData.append(Products(name: name, desc: desc, price: price, id: id))
+            }
+        }catch{
+            print(error)
         }
     }
    
     
-//    func clearCoreData() {
-//           // create an instance of app delegate
-//           let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//           // second step is context
-//           let context = appDelegate.persistentContainer.viewContext
-//           // create a fetch request
-//           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
-//           
-//           fetchRequest.returnsObjectsAsFaults = false
-//           
-//           do {
-//               let results = try context.fetch(fetchRequest)
-//               for managedObjects in results {
-//                   if let managedObjectData = managedObjects as? NSManagedObject {
-//                       context.delete(managedObjectData)
-//                   }
-//               }
-//           } catch {
-//               print(error)
-//           }
-//           
-//       }
+    func clearCoreData() {
+           // create an instance of app delegate
+           let appDelegate = UIApplication.shared.delegate as! AppDelegate
+           // second step is context
+           let context = appDelegate.persistentContainer.viewContext
+           // create a fetch request
+           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
+           
+           fetchRequest.returnsObjectsAsFaults = false
+           
+           do {
+               let results = try context.fetch(fetchRequest)
+               for managedObjects in results {
+                   if let managedObjectData = managedObjects as? NSManagedObject {
+                       context.delete(managedObjectData)
+                   }
+               }
+           } catch {
+               print(error)
+           }
+           
+       }
 
 
 }

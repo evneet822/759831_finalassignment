@@ -16,6 +16,7 @@
 		42003F1923DBB4F3005CD8AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42003F1723DBB4F3005CD8AA /* LaunchScreen.storyboard */; };
 		42003F2523DBB63A005CD8AA /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42003F2423DBB63A005CD8AA /* ProductsModel.swift */; };
 		42003F2823DBB6B6005CD8AA /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42003F2723DBB6B6005CD8AA /* ProductTableViewController.swift */; };
+		42003F2D23DBE7E8005CD8AA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42003F2C23DBE7E8005CD8AA /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		42003F1A23DBB4F3005CD8AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42003F2423DBB63A005CD8AA /* ProductsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
 		42003F2723DBB6B6005CD8AA /* ProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
+		42003F2C23DBE7E8005CD8AA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				42003F2723DBB6B6005CD8AA /* ProductTableViewController.swift */,
 				42003F0D23DBB4F2005CD8AA /* ViewController.swift */,
+				42003F2C23DBE7E8005CD8AA /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				42003F1423DBB4F2005CD8AA /* _59831_finalassignment.xcdatamodeld in Sources */,
 				42003F2823DBB6B6005CD8AA /* ProductTableViewController.swift in Sources */,
 				42003F0C23DBB4F2005CD8AA /* SceneDelegate.swift in Sources */,
+				42003F2D23DBE7E8005CD8AA /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
