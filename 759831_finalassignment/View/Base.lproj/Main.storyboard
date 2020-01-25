@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Products-->
         <scene sceneID="wEg-9B-Gv3">
             <objects>
                 <tableViewController id="vK4-jr-GKT" customClass="ProductTableViewController" customModule="_59831_finalassignment" customModuleProvider="target" sceneMemberID="viewController">
@@ -24,7 +24,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="MxY-Pj-kHl" kind="show" id="dTB-wo-rcc"/>
+                                    <segue destination="MxY-Pj-kHl" kind="show" id="aP7-y9-p1z"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -33,7 +33,13 @@
                             <outlet property="delegate" destination="vK4-jr-GKT" id="hoL-wm-S0v"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="9zT-Dh-xNE"/>
+                    <navigationItem key="navigationItem" title="Products" id="9zT-Dh-xNE">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus.app" catalog="system" id="NwJ-VC-lx4">
+                            <connections>
+                                <segue destination="MxY-Pj-kHl" kind="show" id="nJK-66-C8v"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="teQ-IX-HRJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,18 +64,18 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tFS-mr-JfC">
                                         <rect key="frame" x="0.0" y="54" width="315" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e4H-cn-4VS">
                                         <rect key="frame" x="0.0" y="108" width="315" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                 </subviews>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ll6-Ef-sd0">
                                 <rect key="frame" x="30" y="346" width="315" height="128"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="shJ-wm-JOZ"/>
                                 </constraints>
@@ -77,13 +83,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0P-gm-vPl">
+                                <rect key="frame" x="160" y="534" width="55" height="30"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="SAVE"/>
+                                <connections>
+                                    <action selector="save:" destination="MxY-Pj-kHl" eventType="touchUpInside" id="z0e-gx-1Tw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="t0P-gm-vPl" firstAttribute="leading" secondItem="HBF-Nd-s89" secondAttribute="leading" constant="160" id="3Do-c8-KPI"/>
+                            <constraint firstItem="HBF-Nd-s89" firstAttribute="trailing" secondItem="t0P-gm-vPl" secondAttribute="trailing" constant="160" id="8db-Ns-HeN"/>
                             <constraint firstItem="Pea-jw-ye6" firstAttribute="leading" secondItem="HBF-Nd-s89" secondAttribute="leading" constant="30" id="MWE-No-q6H"/>
                             <constraint firstItem="HBF-Nd-s89" firstAttribute="trailing" secondItem="Pea-jw-ye6" secondAttribute="trailing" constant="30" id="QiZ-Tz-1G5"/>
                             <constraint firstItem="ll6-Ef-sd0" firstAttribute="leading" secondItem="HBF-Nd-s89" secondAttribute="leading" constant="30" id="Qky-9z-Uhc"/>
                             <constraint firstItem="Pea-jw-ye6" firstAttribute="top" secondItem="HBF-Nd-s89" secondAttribute="top" constant="100" id="YkT-rI-eam"/>
+                            <constraint firstItem="t0P-gm-vPl" firstAttribute="top" secondItem="ll6-Ef-sd0" secondAttribute="bottom" constant="60" id="cGh-Fu-EhI"/>
                             <constraint firstItem="ll6-Ef-sd0" firstAttribute="top" secondItem="Pea-jw-ye6" secondAttribute="bottom" constant="60" id="qvy-AI-qIB"/>
                             <constraint firstItem="HBF-Nd-s89" firstAttribute="trailing" secondItem="ll6-Ef-sd0" secondAttribute="trailing" constant="30" id="rMr-nb-O8s"/>
                         </constraints>
@@ -95,6 +112,7 @@
                         <outlet property="idfeild" destination="tFS-mr-JfC" id="2hn-Lp-AOz"/>
                         <outlet property="namefeild" destination="7Kk-RO-Gq1" id="sXh-z0-O2G"/>
                         <outlet property="pricefeild" destination="e4H-cn-4VS" id="rDW-2s-9AS"/>
+                        <outlet property="savelbl" destination="t0P-gm-vPl" id="ISo-16-mVy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsQ-Hb-LHl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -242,4 +260,10 @@
             <point key="canvasLocation" x="839" y="133"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="plus.app" catalog="system" width="64" height="56"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="nJK-66-C8v"/>
+    </inferredMetricsTieBreakers>
 </document>

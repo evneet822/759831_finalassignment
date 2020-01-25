@@ -47,8 +47,6 @@ class ViewController: UIViewController {
         priceTxt.text = "\(p1.price)"
         desctxt.text = "\(p1.desc)"
         
-//        clearCoreData()
-        
         loadata()
 
          NotificationCenter.default.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
@@ -63,7 +61,7 @@ class ViewController: UIViewController {
         let context  = appdelegate.persistentContainer.viewContext
         contextV = context
         
-        for p in products{
+        for p in Products.productsData{
             let entity = NSEntityDescription.insertNewObject(forEntityName: "ProductEntity", into: context)
             entity.setValue(p.name, forKey: "name")
             entity.setValue(p.desc, forKey: "desc")
@@ -77,22 +75,20 @@ class ViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? ProductTableViewController{
-//            destination.productData = loadedData
-        }
-    }
+
     
     func loadata() {
         
-        Products.productsData = []
+
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
         let context  = appdelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
         
         do{
+           
             let results = try context.fetch(request)
+            
             for result in results as! [NSManagedObject]{
                 let name = result.value(forKey: "name") as! String
                 let desc = result.value(forKey: "desc") as! String
@@ -127,6 +123,13 @@ class ViewController: UIViewController {
            } catch {
                print(error)
            }
+        do{
+            try context.save()
+        }catch{
+            print("error")
+        }
+        
+       
            
        }
 

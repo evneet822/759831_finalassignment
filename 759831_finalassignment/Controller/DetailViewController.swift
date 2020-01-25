@@ -10,11 +10,13 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var savelbl: UIButton!
     @IBOutlet weak var idfeild: UITextField!
     @IBOutlet weak var namefeild: UITextField!
     @IBOutlet weak var pricefeild: UITextField!
     @IBOutlet weak var descriptionfeild: UITextView!
     var currindx = -1
+    var objectselected = false
     var slectedproduct: Products?
     
     override func viewDidLoad() {
@@ -22,16 +24,16 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-//        let p = Products.productsData[currindx]
-//
-//        namefeild.text = p.name
-//        pricefeild.text = "\(p.price)"
-//        descriptionfeild.text = p.desc
-//        idfeild.text = "\(p.id)"
-        namefeild.text = slectedproduct?.name
-        pricefeild.text = "\(String(describing: slectedproduct?.price))"
-        descriptionfeild.text = slectedproduct?.desc
-        idfeild.text = "\(String(describing: slectedproduct?.id))"
+
+        
+        
+        if objectselected{
+            namefeild.text = slectedproduct?.name
+            pricefeild.text = "\(slectedproduct?.price ?? 0)"
+            descriptionfeild.text = slectedproduct?.desc
+            idfeild.text = "\(slectedproduct?.id ?? 0)"
+            savelbl.isHidden = true
+        }
     }
     
 
@@ -45,4 +47,17 @@ class DetailViewController: UIViewController {
     }
     */
 
+    @IBAction func save(_ sender: UIButton) {
+        
+        let name = namefeild.text
+        let price = Double(pricefeild.text ?? "0") ?? 0
+        let id = Int(idfeild.text ?? "0") ?? 0
+        let desc = descriptionfeild.text
+        
+        Products.productsData.append(Products(name: name!, desc: desc!, price: price, id: id))
+        namefeild.text = ""
+        idfeild.text = ""
+        pricefeild.text = ""
+        descriptionfeild.text = ""
+    }
 }

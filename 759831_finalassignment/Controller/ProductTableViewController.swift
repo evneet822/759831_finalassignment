@@ -14,11 +14,10 @@ class ProductTableViewController: UITableViewController,UISearchResultsUpdating{
     
     
     
-//   @IBOutlet weak var searchbar: UISearchBar!
+
     var contextVC : NSManagedObjectContext?
     var filterData : [Products] = []
-//    var isfiltering = true
-   let searchController = UISearchController(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
     
     
     
@@ -33,17 +32,14 @@ class ProductTableViewController: UITableViewController,UISearchResultsUpdating{
         
         
        searchController.searchResultsUpdater = self
-       // 2
+     
        searchController.obscuresBackgroundDuringPresentation = false
-       // 3
+      
        searchController.searchBar.placeholder = "products"
-       // 4
+      
        navigationItem.searchController = searchController
-       // 5
+      
        definesPresentationContext = true
-//        var isSearchBarEmpty: Bool {
-//             return searchController.searchBar.text?.isEmpty ?? true
-//           }
 
         
     }
@@ -148,21 +144,18 @@ class ProductTableViewController: UITableViewController,UISearchResultsUpdating{
                     pd = Products.productsData[index!]
                 }
                 destination.slectedproduct = pd
+                destination.objectselected = true
                 
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
 
         
-//    func filterContentForSearchText(_ searchText: String,
-//                                    category: Candy.Category? = nil) {
-//      filteredCandies = candies.filter { (candy: Candy) -> Bool in
-//        return candy.name.lowercased().contains(searchText.lowercased())
-//      }
-//
-//      tableView.reloadData()
-//    }
+
     
     func filteproducts(_ searchText : String){
         filterData = Products.productsData.filter({ (product: Products) -> Bool in
