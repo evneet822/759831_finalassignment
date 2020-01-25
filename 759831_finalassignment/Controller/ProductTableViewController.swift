@@ -9,14 +9,18 @@
 import UIKit
 import CoreData
 
-class ProductTableViewController: UITableViewController{
+class ProductTableViewController: UITableViewController,UISearchResultsUpdating{
     
     
-   @IBOutlet weak var searchbar: UISearchBar!
+    
+    
+//   @IBOutlet weak var searchbar: UISearchBar!
     var contextVC : NSManagedObjectContext?
-    var productData : [Products]?
+    var filterData : [Products] = []
+//    var isfiltering = true
+   let searchController = UISearchController(searchResultsController: nil)
     
-//    let searchController = UISearchController(searchResultsController: nil)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +30,21 @@ class ProductTableViewController: UITableViewController{
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
-       
-//        loadCoreData()
+        
+        
+       searchController.searchResultsUpdater = self
+       // 2
+       searchController.obscuresBackgroundDuringPresentation = false
+       // 3
+       searchController.searchBar.placeholder = "products"
+       // 4
+       navigationItem.searchController = searchController
+       // 5
+       definesPresentationContext = true
+//        var isSearchBarEmpty: Bool {
+//             return searchController.searchBar.text?.isEmpty ?? true
+//           }
+
         
     }
 
@@ -40,14 +57,25 @@ class ProductTableViewController: UITableViewController{
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Products.productsData.count
+        if searchController.isActive {
+            return filterData.count
+        }else{
         
+        return Products.productsData.count
+        }
+    
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "productCell"){
-            cell.textLabel?.text = Products.productsData[indexPath.row].name
+            let p : Products
+            if searchController.isActive{
+                p = filterData[indexPath.row]
+            }else{
+                p = Products.productsData[indexPath.row]
+            }
+            cell.textLabel?.text = p.name
             
             return cell
 
@@ -58,7 +86,10 @@ class ProductTableViewController: UITableViewController{
     
 
     
-    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filteproducts(searchBar.text!)
+    }
     
     
 
@@ -110,14 +141,36 @@ class ProductTableViewController: UITableViewController{
         if let destination = segue.destination as? DetailViewController{
             if let cell = sender as? UITableViewCell{
                 let index = tableView.indexPath(for: cell)?.row
-                destination.currindx = index!
+                let pd : Products
+                if searchController.isActive{
+                    pd = filterData[index!]
+                }else{
+                    pd = Products.productsData[index!]
+                }
+                destination.slectedproduct = pd
+                
             }
         }
     }
 
 
         
+//    func filterContentForSearchText(_ searchText: String,
+//                                    category: Candy.Category? = nil) {
+//      filteredCandies = candies.filter { (candy: Candy) -> Bool in
+//        return candy.name.lowercased().contains(searchText.lowercased())
+//      }
+//
+//      tableView.reloadData()
+//    }
     
+    func filteproducts(_ searchText : String){
+        filterData = Products.productsData.filter({ (product: Products) -> Bool in
+            return product.name.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+
+    }
 
 
 

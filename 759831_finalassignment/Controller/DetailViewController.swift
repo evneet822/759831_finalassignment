@@ -15,18 +15,23 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var pricefeild: UITextField!
     @IBOutlet weak var descriptionfeild: UITextView!
     var currindx = -1
+    var slectedproduct: Products?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let p = Products.productsData[currindx]
-        
-        namefeild.text = p.name
-        pricefeild.text = "\(p.price)"
-        descriptionfeild.text = p.desc
-        idfeild.text = "\(p.id)"
+//        let p = Products.productsData[currindx]
+//
+//        namefeild.text = p.name
+//        pricefeild.text = "\(p.price)"
+//        descriptionfeild.text = p.desc
+//        idfeild.text = "\(p.id)"
+        namefeild.text = slectedproduct?.name
+        pricefeild.text = "\(String(describing: slectedproduct?.price))"
+        descriptionfeild.text = slectedproduct?.desc
+        idfeild.text = "\(String(describing: slectedproduct?.id))"
     }
     
 

@@ -79,7 +79,7 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ProductTableViewController{
-            destination.productData = loadedData
+//            destination.productData = loadedData
         }
     }
     
